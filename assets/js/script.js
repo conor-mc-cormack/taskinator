@@ -7,16 +7,35 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 // a function not defined yet
 var createTaskHandler = function (event) {
   event.preventDefault();
+  // .value is what we use to record what was typed and
+  // used console.dir(); to find it on the console
+  // input name was pulled from html element
+  var taskNameInput = document.querySelector("input[name='task-name']").value;
+  var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
-  // create new task item
+  // create list item
   var listItemEl = document.createElement("li");
-  // add item to stylesheet
+  // gives it a class name
   listItemEl.className = "task-item";
-  // add text to the task item
-  listItemEl.textContent = "This is a new task.";
-  // add the element as a attachment to the task
+
+  // create div to hold task info and add to list item
+  var taskInfoEl = document.createElement("div");
+  // give it a class name
+  taskInfoEl.className = "task-info";
+
+  // add HTML content to div
+  taskInfoEl.innerHTML =
+    "<h3 class='task-name'>" +
+    taskNameInput +
+    "</h3><span class='task-type'>" +
+    taskTypeInput +
+    "</span>";
+  // adds new item to the bottom of the list
+  listItemEl.appendChild(taskInfoEl);
+
+  // add entire list item to list
   tasksToDoEl.appendChild(listItemEl);
-  console.log(event);
+  console.dir(listItemEl);
 };
 
 // this defines the the function
