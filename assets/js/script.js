@@ -3,9 +3,9 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // its very important to place this function above the
 // event listener because we would recive a error that
-// createTaskHandler hasnt been defined because were calling
+// taskFormHandler hasnt been defined because were calling
 // a function not defined yet
-var createTaskHandler = function (event) {
+var taskFormHandler = function (event) {
   event.preventDefault();
   // .value is what we use to record what was typed and
   // used console.dir(); to find it on the console
@@ -13,6 +13,17 @@ var createTaskHandler = function (event) {
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
+  // package up data as a object
+  var taskDataObj = {
+    name: taskNameInput,
+    type: taskTypeInput,
+  };
+
+  // send it as a argument to createTaskEl
+  createTaskEl(taskDataObj);
+};
+
+var createTaskEl = function (taskDataObj) {
   // create list item
   var listItemEl = document.createElement("li");
   // gives it a class name
@@ -26,17 +37,16 @@ var createTaskHandler = function (event) {
   // add HTML content to div
   taskInfoEl.innerHTML =
     "<h3 class='task-name'>" +
-    taskNameInput +
+    taskDataObj.name +
     "</h3><span class='task-type'>" +
-    taskTypeInput +
+    taskDataObj.type +
     "</span>";
   // adds new item to the bottom of the list
   listItemEl.appendChild(taskInfoEl);
 
   // add entire list item to list
   tasksToDoEl.appendChild(listItemEl);
-  console.dir(listItemEl);
 };
 
 // this defines the the function
-formEl.addEventListener("click", createTaskHandler);
+formEl.addEventListener("click", taskFormHandler);
